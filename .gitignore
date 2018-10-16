@@ -20,4 +20,8 @@ npm-debug.log
 
 # Ignore other unnecessary files.
 .DS_Store
-public/assets/javascripts/boot.js
+Gemfile.lock
+yarn.lock
+public/assets/javascripts/*
+!.gitkeep
+
