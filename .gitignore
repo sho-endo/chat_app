@@ -20,7 +20,6 @@ npm-debug.log
 
 # Ignore other unnecessary files.
 .DS_Store
-/Gemfile.lock
 /yarn.lock
 public/assets/javascripts/*
 !.gitkeep
