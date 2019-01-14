@@ -24,7 +24,7 @@ export default {
       .set('X-CSRF-Token', CSRFToken())
       .send({
         contents,
-        from: 1, // ユーザー機能を実装したら修正
+        from: 1, // ユーザー機能を実装したら修正（自分のユーザーIDにする）
         timestamp: +new Date(),
       })
       .end((error, res) => {
@@ -34,6 +34,25 @@ export default {
             type: ActionTypes.SEND_MESSAGE,
             json,
           })
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  getMessages() {
+    return new Promise((resolve, reject) => {
+      request
+      .get('/api/messages') // 取得したいjsonがあるURLを指定する
+      .end((error, res) => {
+        if (!error && res.status === 200) { // 200はアクセスが成功した際のステータスコードです。
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.GET_MESSAGES,
+            json, // json: jsonと同じ。keyとvalueが一致する場合、このように省略出来ます。
+          })
+          resolve(json)
         } else {
           reject(res)
         }
