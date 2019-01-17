@@ -8,5 +8,15 @@
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
   %body
+    // react側でcurrent_userの値を利用するためのもの
+    - if current_user
+      #user-name{data: current_user.name}
+      #user-id{data: current_user.id}
+    - else
+      #user-name
+      #user-id
+
+    - if user_signed_in?
+      = render 'layouts/header'
     .container
       = yield
