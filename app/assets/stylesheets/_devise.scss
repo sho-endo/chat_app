@@ -1,0 +1,50 @@
+@mixin header {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+@mixin wrapper {
+  padding-top: 90px;
+}
+
+
+// 新規登録ページ
+.signup-wrapper {
+  @include wrapper;
+}
+
+.signup-header {
+  @include header;
+}
+
+
+// ログインページ
+.login-wrapper {
+  @include wrapper;
+}
+
+.login-header {
+  @include header;
+}
+
+
+// パスワードリセットページ
+.password-reset-wrapper {
+  @include wrapper;
+}
+
+.password-reset-header {
+  @include header;
+  text-align: left;
+  padding-bottom: 7px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ccc;
+}
+
+.password-reset-text {
+  margin-bottom: 10px;
+}
+
+.password-reset-form {
+  margin-top: 30px;
+}
