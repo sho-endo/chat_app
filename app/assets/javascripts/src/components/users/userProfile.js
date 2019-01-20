@@ -15,7 +15,7 @@ class UserProfile extends React.Component {
               <p>{userEmail}</p>
               { userId === currentUserId
                 ? <a href='/users/edit' className='btn btn-info'>プロフィール編集</a>
-                : null}
+                : null }
             </div>
           </div>
         </div>

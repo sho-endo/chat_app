@@ -1,6 +1,7 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
 import UserProfile from '../components/users/userProfile'
+import UserSerch from '../components/users/userSerch'
 
 export default class UserRouter extends BaseRouter {
   register() {
@@ -10,10 +11,16 @@ export default class UserRouter extends BaseRouter {
       const userId = document.getElementById('user-profile-id').getAttribute('data')
       this.route('/users/' + userId, this.decorateUserProfile)
     }
+    this.route('/users/serch', this.decorateUserSerch)
   }
 
   decorateUserProfile(ctx, next) {
     (new ReactDecorator()).decorate('react-profile', UserProfile)
+    next()
+  }
+
+  decorateUserSerch(ctx, next) {
+    (new ReactDecorator()).decorate('react-user-serch', UserSerch)
     next()
   }
 }
