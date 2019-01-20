@@ -1,0 +1,23 @@
+.serch_user_list {
+  padding-top: 1px;
+    font-size: 16px;
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.serch_user_list_result {
+  cursor: pointer;
+  height: 60px;
+  line-height: 40px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+  &:hover {
+    background-color: #f8f8f8;
+  }
+}

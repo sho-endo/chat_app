@@ -12,9 +12,10 @@
 @import 'partials/_userList';
 
 // Components
-@import 'components/_replyBox';
+@import 'components/replyBox';
 @import 'components/userProfile';
 @import 'components/userSerch';
+@import 'components/serchedUserList';
 
 // bootstrap
 @import 'bootstrap-sprockets';

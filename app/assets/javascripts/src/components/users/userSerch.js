@@ -1,6 +1,32 @@
 import React from 'react'
+import UsersAction from '../../actions/users'
+import UsersStore from '../../stores/user'
+import SerchedUserList from './serchedUserList'
 
 class UserSerch extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
+  }
+  get initialState() {
+    return this.getStateFromStore()
+  }
+  getStateFromStore() {
+    return { serchedUsers: UsersStore.getUsers() }
+  }
+  componentWillMount() {
+    UsersStore.onChange(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    UsersStore.offChange(this.offChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
+  }
+  handleInputWord(e) {
+    UsersAction.serchUser(e.target.value)
+  }
   render() {
     return (
       <div className ='user-serch-wrapper'>
@@ -16,7 +42,9 @@ class UserSerch extends React.Component {
         <input
           className='serch-form'
           placeholder='ユーザー名で検索しよう'
+          onChange={ this.handleInputWord.bind(this) }
         />
+        <SerchedUserList {...this.state} />
       </div>
     )
   }
