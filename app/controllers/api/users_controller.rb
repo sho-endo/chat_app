@@ -1,14 +1,13 @@
 module Api
   class UsersController < ApplicationController
     def index
-      # とりあえず今は全ユーザー返してる
-      # 検索ワードに応じて返すように修正
-      # params[:serch_word]で文字列取得できてる
-      puts '==========================='
-      puts params[:serch_word]
-      puts '==========================='
-      @users = User.all
-      render json: @users
+      serch_word = params[:serch_word]
+      if serch_word.present?
+        @serched_users = User.where('name LIKE ?', "%#{serch_word}%")
+      else
+        @serched_users = []
+      end
+      render json: @serched_users
     end
   end
 end

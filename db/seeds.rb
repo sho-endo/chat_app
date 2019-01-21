@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+(1..30).each do |i|
+  User.create(
+    name: (0...8).map{ ('a'..'z').to_a[rand(26)] }.join,
+    email: "test#{i}@ne.jp",
+    password: 'foobar'
+    )
+end
