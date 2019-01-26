@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   namespace :api, { format: 'json' } do
     resources :messages, only: [:index, :create]
-    resources :users, only: [:index]
+    get '/users/serch', to: 'users#serch'
+    get '/users/friends', to: 'users#friends'
+    resources :friendships, only: [:create, :destroy]
   end
 end

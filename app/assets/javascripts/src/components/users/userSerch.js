@@ -1,6 +1,7 @@
 import React from 'react'
+import FriendshipsAction from '../../actions/friendships'
 import UsersAction from '../../actions/users'
-import UsersStore from '../../stores/user'
+import UsersStore from '../../stores/users'
 import SerchedUserList from './serchedUserList'
 
 class UserSerch extends React.Component {
@@ -27,6 +28,10 @@ class UserSerch extends React.Component {
   handleInputWord(e) {
     UsersAction.serchUser(e.target.value)
   }
+  onClickUserListItem(e) {
+    FriendshipsAction.createFriendship(e.target.getAttribute('value'))
+    window.location.href = '/'
+  }
   render() {
     return (
       <div className ='user-serch-wrapper'>
@@ -44,7 +49,10 @@ class UserSerch extends React.Component {
           placeholder='ユーザー名で検索しよう'
           onChange={ this.handleInputWord.bind(this) }
         />
-        <SerchedUserList {...this.state} />
+        <SerchedUserList
+          {...this.state }
+          onClick={ this.onClickUserListItem.bind(this) }
+        />
       </div>
     )
   }

@@ -3,7 +3,6 @@ import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
-import { users } from '../../stores/user' // // その場しのぎ、要修正
 // import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
@@ -32,7 +31,7 @@ class MessagesBox extends React.Component {
   }
   render() {
     // const messagesLength = this.state.messages.length
-    const currentUserID = users.user.id
+    const currentUserID = 1 // 仮
 
     const messages = this.state.messages.map((message, index) => {
       const messageClasses = classNames({

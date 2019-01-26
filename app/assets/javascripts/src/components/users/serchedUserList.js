@@ -10,7 +10,7 @@ function SerchedUserList(props) {
         _.map(serchedUsers, function(user) {
           return (
           <li key={user.id} className='serch_user_list_item'>
-            <div className='serch_user_list_result'>
+            <div className='serch_user_list_result' onClick={props.onClick} value={user.id}>
               <span>{user.name}</span>
             </div>
           </li>
@@ -23,6 +23,7 @@ function SerchedUserList(props) {
 
 SerchedUserList.propTypes = {
   serchedUsers: PropTypes.array,
+  onClick: PropTypes.func,
 }
 
 export default SerchedUserList
