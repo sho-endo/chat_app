@@ -13,3 +13,14 @@
     password: 'foobar'
     )
 end
+
+User.create(
+  name: 'test',
+  email: 'test@ne.jp',
+  password: 'foobar'
+  )
+User.create(
+  name: 'hoge',
+  email: 'hogehoge@foobar.com',
+  password: 'foobar'
+)

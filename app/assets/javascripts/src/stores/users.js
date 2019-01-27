@@ -48,7 +48,12 @@ UsersStore.dispatchToken = Dispatcher.register(payload => {
       UsersStore.emitChange()
       break
 
-    case ActionTypes.CREATE_FRIEND:
+    case ActionTypes.CREATE_FRIENDSHIP:
+      UsersStore.setFriends(action.json)
+      UsersStore.emitChange()
+      break
+
+    case ActionTypes.DELETE_FRIENDSHIP:
       UsersStore.setFriends(action.json)
       UsersStore.emitChange()
       break

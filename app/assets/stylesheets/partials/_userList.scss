@@ -82,5 +82,11 @@
       float: left;
       padding-left: 15px;
     }
+
+    &__delete-btn {
+      color: red;
+      float: right;
+      margin-top: -5px;
+    }
   }
 }

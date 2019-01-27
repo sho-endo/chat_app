@@ -6,6 +6,7 @@ import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import FriendshipsAction from '../../actions/friendships'
 
 class UserList extends React.Component {
 
@@ -38,6 +39,7 @@ class UserList extends React.Component {
   }
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
+    UsersStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
     MessagesStore.offChange(this.onStoreChange.bind(this))
@@ -47,6 +49,15 @@ class UserList extends React.Component {
   }
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
+  }
+  onClickDeleteButton(otherUserid, e) {
+    if (confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
+      this.deleteFriendship(otherUserid)
+    }
+    e.stopPropagation()
+  }
+  deleteFriendship(otherUserId) {
+    FriendshipsAction.deleteFriendship(otherUserId)
   }
   render() {
     // this.state.messageList.sort((a, b) => {
@@ -128,6 +139,11 @@ class UserList extends React.Component {
               { user.name }
             </h4>
           </div>
+          <i
+          onClick={ this.onClickDeleteButton.bind(this, user.id)}
+          className='fa fa-times-circle user-list__item__delete-btn'
+          >
+          </i>
         </li>
       )
     }, this)
