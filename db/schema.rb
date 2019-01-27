@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190126112045) do
+ActiveRecord::Schema.define(version: 20190127122236) do
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "from_user_id"
-    t.integer  "to_user_id"
+    t.integer  "from_user_id", null: false
+    t.integer  "to_user_id",   null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20190126112045) do
   add_index "friendships", ["from_user_id", "to_user_id"], name: "index_friendships_on_from_user_id_and_to_user_id", unique: true
 
   create_table "messages", force: :cascade do |t|
-    t.text     "contents"
-    t.integer  "from"
+    t.text     "contents",             null: false
+    t.integer  "from",                 null: false
     t.integer  "timestamp",  limit: 8
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20190126112045) do
     t.datetime "remember_created_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "name"
+    t.string   "name",                                null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

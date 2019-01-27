@@ -1,5 +1,7 @@
 module Api
   class FriendshipsController < ApplicationController
+    before_action :authenticate_user!
+
     def create
       friendship = Friendship.create(friendship_params)
       @friends = current_user.friends
