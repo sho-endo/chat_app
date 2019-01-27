@@ -3,6 +3,7 @@ import FriendshipsAction from '../../actions/friendships'
 import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
 import SerchedUserList from './serchedUserList'
+import Header from '../shared/header'
 
 class UserSerch extends React.Component {
 
@@ -39,26 +40,29 @@ class UserSerch extends React.Component {
   }
   render() {
     return (
-      <div className ='user-serch-wrapper'>
-        <div className='chatapp-logo-wrapper'>
-          <span className='chatapp logo-C'>C</span>
-          <span className='chatapp logo-h'>h</span>
-          <span className='chatapp logo-a'>a</span>
-          <span className='chatapp logo-t'>t</span>
-          <span className='chatapp logo-A'>A</span>
-          <span className='chatapp logo-p'>p</span>
-          <span className='chatapp logo-p2'>p</span>
+      <div>
+        <Header { ...this.state.currentUser } />
+        <div className ='user-serch-wrapper'>
+          <div className='chatapp-logo-wrapper'>
+            <span className='chatapp logo-C'>C</span>
+            <span className='chatapp logo-h'>h</span>
+            <span className='chatapp logo-a'>a</span>
+            <span className='chatapp logo-t'>t</span>
+            <span className='chatapp logo-A'>A</span>
+            <span className='chatapp logo-p'>p</span>
+            <span className='chatapp logo-p2'>p</span>
+          </div>
+          <input
+            className='serch-form'
+            placeholder='ユーザー名で検索しよう'
+            onChange={ this.handleInputWord.bind(this) }
+          />
+          <SerchedUserList
+            {...this.state }
+            currentUserId = { this.state.currentUser.id }
+            onClick={ this.onClickUserListItem.bind(this) }
+          />
         </div>
-        <input
-          className='serch-form'
-          placeholder='ユーザー名で検索しよう'
-          onChange={ this.handleInputWord.bind(this) }
-        />
-        <SerchedUserList
-          {...this.state }
-          currentUserId = { this.state.currentUser.id }
-          onClick={ this.onClickUserListItem.bind(this) }
-        />
       </div>
     )
   }
