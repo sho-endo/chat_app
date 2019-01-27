@@ -17,12 +17,19 @@ class UserStore extends BaseStore {
   removeChangeListener(callback) {
     this.off('change', callback)
   }
-  getUsers() {
-    if (!this.get('users')) this.setUsers([])
-    return this.get('users')
+  getSerchedUsers() {
+    if (!this.get('serchedUsers')) this.setSerchedUsers([])
+    return this.get('serchedUsers')
   }
-  setUsers(array) {
-    this.set('users', array)
+  getFriends() {
+    if (!this.get('friends')) this.setFriends([])
+    return this.get('friends')
+  }
+  setSerchedUsers(array) {
+    this.set('serchedUsers', array)
+  }
+  setFriends(array) {
+    this.set('friends', array)
   }
 }
 const UsersStore = new UserStore()
@@ -32,17 +39,17 @@ UsersStore.dispatchToken = Dispatcher.register(payload => {
 
   switch (action.type) {
     case ActionTypes.SERCH_USER:
-      UsersStore.setUsers(action.json)
+      UsersStore.setSerchedUsers(action.json)
       UsersStore.emitChange()
       break
 
     case ActionTypes.GET_FRIENDS:
-      UsersStore.setUsers(action.json)
+      UsersStore.setFriends(action.json)
       UsersStore.emitChange()
       break
 
     case ActionTypes.CREATE_FRIEND:
-      UsersStore.setUsers(action.json)
+      UsersStore.setFriends(action.json)
       UsersStore.emitChange()
       break
   }

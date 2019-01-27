@@ -14,7 +14,7 @@ class UserSerch extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    return { serchedUsers: UsersStore.getUsers() }
+    return { serchedUsers: UsersStore.getSerchedUsers() }
   }
   componentWillMount() {
     UsersStore.onChange(this.onStoreChange.bind(this))

@@ -33,7 +33,7 @@ class UserList extends React.Component {
     // })
     return {
       openChatID: MessagesStore.getOpenChatUserID(),
-      users: UsersStore.getUsers(),
+      users: UsersStore.getFriends(),
     }
   }
   componentWillMount() {
@@ -132,8 +132,6 @@ class UserList extends React.Component {
       )
     }, this)
 
-    console.log(document.getElementById('current_user-id').getAttribute('data'))
-    console.log(this.state)
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
