@@ -1,7 +1,9 @@
 .serch_user_list {
   padding-top: 1px;
     font-size: 16px;
+    max-height: 600px;
     width: 45%;
+    overflow: scroll;
     margin-left: auto;
     margin-right: auto;
     border-left: 1px solid #ccc;
