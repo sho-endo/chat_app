@@ -1,9 +1,31 @@
 import React from 'react'
+import UsersAction from '../../actions/users'
+import UsersStore from '../../stores/users'
 
 class UserProfile extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
+    UsersAction.getCurrentUser()
+  }
+  get initialState() {
+    return this.getStateFromStore()
+  }
+  getStateFromStore() {
+    return { currentUser: UsersStore.getCurrentUser() }
+  }
+  componentWillMount() {
+    UsersStore.onChange(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    UsersStore.offChange(this.offChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
+  }
   render() {
-    const currentUserId = document.getElementById('current_user-id').getAttribute('data')
-    const userId = document.getElementById('user-profile-id').getAttribute('data')
+    const { currentUser } = this.state
+    const userId = Number(document.getElementById('user-profile-id').getAttribute('data'))
     const userName = document.getElementById('user-profile-name').getAttribute('data')
     const userEmail = document.getElementById('user-profile-email').getAttribute('data')
     return (
@@ -13,7 +35,7 @@ class UserProfile extends React.Component {
             <div className='profile-contents-wrapper'>
               <p>{userName}</p>
               <p>{userEmail}</p>
-              { userId === currentUserId
+              { userId === currentUser.id
                 ? <a href='/users/edit' className='btn btn-info'>プロフィール編集</a>
                 : null }
             </div>

@@ -1,9 +1,30 @@
 import React from 'react'
+import UsersAction from '../../actions/users'
+import UsersStore from '../../stores/users'
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
+    UsersAction.getCurrentUser()
+  }
+  get initialState() {
+    return this.getStateFromStore()
+  }
+  getStateFromStore() {
+    return { currentUser: UsersStore.getCurrentUser() }
+  }
+  componentWillMount() {
+    UsersStore.onChange(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    UsersStore.offChange(this.offChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
+  }
   render() {
-    const currentUserName = document.getElementById('current_user-name').getAttribute('data')
-    const currentUserId = document.getElementById('current_user-id').getAttribute('data')
+    const { currentUser } = this.state
     return (
         <header className='header'>
           <div className='header-left'>
@@ -15,9 +36,9 @@ class Header extends React.Component {
             <ul className='nav navbar-nav'>
               <li className='serch-user-btn'><a href='/users/serch'>ユーザーを探す</a></li>
               <li className='dropdown header-dropdown'>
-                <a href='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{currentUserName}<span className='caret'></span></a>
+                <a href='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{currentUser.name}<span className='caret'></span></a>
                 <ul className='dropdown-menu user-menu'>
-                  <li className='user-menu-list'><a href={'/users/' + currentUserId}>マイページ</a></li>
+                  <li className='user-menu-list'><a href={'/users/' + currentUser.id}>マイページ</a></li>
                   <li className='user-menu-list'><a href='/users/sign_out' data-method='delete'>ログアウト</a></li>
                 </ul>
               </li>

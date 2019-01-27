@@ -9,12 +9,16 @@ class UserSerch extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    UsersAction.getCurrentUser()
   }
   get initialState() {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    return { serchedUsers: UsersStore.getSerchedUsers() }
+    return {
+      serchedUsers: UsersStore.getSerchedUsers(),
+      currentUser: UsersStore.getCurrentUser(),
+    }
   }
   componentWillMount() {
     UsersStore.onChange(this.onStoreChange.bind(this))
@@ -29,7 +33,8 @@ class UserSerch extends React.Component {
     UsersAction.serchUser(e.target.value)
   }
   onClickUserListItem(e) {
-    FriendshipsAction.createFriendship(e.target.getAttribute('value'))
+    const { currentUser } = this.state
+    FriendshipsAction.createFriendship(currentUser.id, e.target.getAttribute('value'))
     window.location.href = '/'
   }
   render() {
@@ -51,6 +56,7 @@ class UserSerch extends React.Component {
         />
         <SerchedUserList
           {...this.state }
+          currentUserId = { this.state.currentUser.id }
           onClick={ this.onClickUserListItem.bind(this) }
         />
       </div>

@@ -8,14 +8,6 @@
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
   %body
-    -# react側でcurrent_userの値を利用するためのもの
-    - if current_user
-      #current_user-name{data: current_user.name}
-      #current_user-id{data: current_user.id}
-    - else # current_userが空だった場合の参照先のエラーを防ぐため
-      #current_user-name
-      #current_user-id
-
     - if user_signed_in?
       = render 'layouts/header'
     .container

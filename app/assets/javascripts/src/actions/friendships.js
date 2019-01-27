@@ -3,8 +3,7 @@ import Dispatcher from '../dispatcher'
 import { ActionTypes, APIEndpoints, CSRFToken } from '../constants/app'
 
 export default {
-  createFriendship(toUserId) {
-    const currentUserId = document.getElementById('current_user-id').getAttribute('data')
+  createFriendship(currentUserId, toUserId) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.CREATE_FRIENDSHIP}`)

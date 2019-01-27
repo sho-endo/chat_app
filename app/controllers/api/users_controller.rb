@@ -16,5 +16,9 @@ module Api
       @friends = current_user.friends
       render json: @friends
     end
+
+    def current
+      render json: current_user
+    end
   end
 end

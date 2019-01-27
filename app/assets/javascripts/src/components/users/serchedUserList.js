@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 function SerchedUserList(props) {
   const serchedUsers = props.serchedUsers
-  const currentUserId = Number(document.getElementById('current_user-id').getAttribute('data'))
+  const currentUserId = props.currentUserId
   return (
     <ul className='serch_user_list'>
       {
@@ -26,6 +26,7 @@ function SerchedUserList(props) {
 
 SerchedUserList.propTypes = {
   serchedUsers: PropTypes.array,
+  currentUserId: PropTypes.number,
   onClick: PropTypes.func,
 }
 
