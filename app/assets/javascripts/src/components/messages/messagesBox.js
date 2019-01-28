@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classNames'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
@@ -36,7 +37,10 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     const currentUserID = this.props.currentUser.id
-    const messages = this.state.messages.map((message, index) => {
+    const sortedMessages = _.orderBy(
+      this.state.messages, ['created_at'], ['asc']
+    )
+    const messages = sortedMessages.map((message, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
         'message-box__item--from-current': message.from_user_id === currentUserID,

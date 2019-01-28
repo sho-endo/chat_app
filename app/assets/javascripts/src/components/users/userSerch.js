@@ -33,9 +33,9 @@ class UserSerch extends React.Component {
   handleInputWord(e) {
     UsersAction.serchUser(e.target.value)
   }
-  onClickUserListItem(e) {
+  onClickUserListItem(otherUserId) {
     const { currentUser } = this.state
-    FriendshipsAction.createFriendship(currentUser.id, e.target.getAttribute('value'))
+    FriendshipsAction.createFriendship(currentUser.id, otherUserId)
     window.location.href = '/'
   }
   render() {
@@ -60,7 +60,7 @@ class UserSerch extends React.Component {
           <SerchedUserList
             {...this.state }
             currentUserId = { this.state.currentUser.id }
-            onClick={ this.onClickUserListItem.bind(this) }
+            onClickUserListItem = { this.onClickUserListItem.bind(this) }
           />
         </div>
       </div>
