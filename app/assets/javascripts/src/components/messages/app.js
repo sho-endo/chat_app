@@ -19,12 +19,11 @@ class App extends React.Component {
   }
   getStateFromStore() {
     let otherUserId
-    if (!this.state || !this.state.otherUserId) {
+    if (!this.state || !this.state.otherUserId || !MessagesStore.getOtherUserId()) {
       otherUserId = MessagesStore.getOtherUserId()
     } else {
       otherUserId = this.state.otherUserId
     }
-
     return {
       currentUser: UsersStore.getCurrentUser(),
       users: UsersStore.getFriends(),
