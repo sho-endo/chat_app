@@ -3,9 +3,8 @@ module Api
     before_action :authenticate_user!
 
     def create
-      friendship = Friendship.create(friendship_params)
-      @friends = current_user.friends
-      render json: @friends
+      Friendship.create(friendship_params)
+      render json: current_user.friends
     end
 
     def destroy
@@ -13,8 +12,7 @@ module Api
         Friendship.find_by(from_user_id: current_user.id, to_user_id: params[:id]) ||
         Friendship.find_by(from_user_id: params[:id], to_user_id: current_user.id)
       friendship.destroy if friendship
-      @friends = current_user.friends
-      render json: @friends
+      render json: current_user.friends
     end
 
     private
