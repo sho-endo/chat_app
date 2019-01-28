@@ -16,7 +16,7 @@ module Api
 
     private
       def message_params
-        params.require(:message).permit(:contents, :from, :timestamp)
+        params.require(:message).permit(:contents, :from_user_id, :to_user_id, :timestamp)
       end
   end
 end

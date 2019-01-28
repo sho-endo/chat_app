@@ -36,12 +36,12 @@ class MessagesBox extends React.Component {
     const messages = this.state.messages.map((message, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
-        'message-box__item--from-current': message.from === currentUserID,
+        'message-box__item--from-current': message.from_user_id === currentUserID,
         'clear': true,
       })
 
       return (
-          <li key={ message.timestamp + '-' + message.from } className={ messageClasses }>
+          <li key={ message.timestamp + '-' + message.from_user_id } className={ messageClasses }>
             <div className='message-box__item__contents'>
               { message.contents }
             </div>

@@ -24,7 +24,8 @@ export default {
       .set('X-CSRF-Token', CSRFToken())
       .send({
         contents,
-        from: 1, // ユーザー機能を実装したら修正（自分のユーザーIDにする）
+        from_user_id: 1, // ユーザー機能を実装したら修正（自分のユーザーIDにする）
+        to_user_id: 2, // 仮
         timestamp: +new Date(),
       })
       .end((error, res) => {
