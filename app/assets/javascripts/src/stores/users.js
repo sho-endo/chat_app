@@ -26,7 +26,7 @@ class UserStore extends BaseStore {
     return this.get('friends')
   }
   getCurrentUser() {
-    if (!this.get('currentUser')) this.setCurrentUser([])
+    if (!this.get('currentUser')) this.setCurrentUser({})
     return this.get('currentUser')
   }
   setSerchedUsers(array) {

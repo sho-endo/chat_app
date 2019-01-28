@@ -3,12 +3,16 @@ module Api
     before_action :authenticate_user!
 
     def index
-      render json: Message.all
+      other_user_id = params[:other_user_id]
+      @messages = other_user_id ? current_user.all_chats(other_user_id) : []
+      render json: @messages
     end
 
     def create
-      Message.create(message_params)
-      render json: Message.all
+      current_user.send_messages.create(message_params)
+      other_user_id = params[:other_user_id]
+      @messages = other_user_id ? current_user.all_chats(other_user_id) : []
+      render json: @messages
     end
 
     private

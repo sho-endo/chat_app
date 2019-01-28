@@ -14,4 +14,9 @@ class User < ActiveRecord::Base
   def friends
     friends_of_from_user + friends_of_to_user
   end
+
+  def all_chats(other_user_id)
+    send_messages.where(to_user_id: other_user_id) +
+    receive_messages.where(from_user_id: other_user_id)
+  end
 end

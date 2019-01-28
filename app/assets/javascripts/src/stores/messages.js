@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-// import UserStore from '../stores/user'
+import UsersStore from '../stores/users'
 import { ActionTypes } from '../constants/app'
 
 const messages = {
@@ -69,7 +69,7 @@ const messages = {
   },
 }
 
-var openChatID = parseInt(Object.keys(messages)[0], 10)
+// let otherUserId = parseInt(Object.keys(messages)[0], 10)
 
 class ChatStore extends BaseStore {
   addChangeListener(callback) {
@@ -78,15 +78,23 @@ class ChatStore extends BaseStore {
   removeChangeListener(callback) {
     this.off('change', callback)
   }
-  getOpenChatUserID() {
-    return openChatID
+  // getOpenChatUserID() {
+  //   return openChatID
+  // }
+  getOtherUserId() {
+    let otherUserId = null
+    const users = UsersStore.getFriends()
+    if (users.length !== 0) {
+      otherUserId = users[0].id
+    }
+    return otherUserId
   }
-  getChatByUserID(id) {
-    return messages[id]
-  }
-  getAllChats() {
-    return messages
-  }
+  // getChatByUserID(id) {
+  //   return messages[id]
+  // }
+  // getAllChats() {
+  //   return messages
+  // }
   getMessages() {
     if (!this.get('messages')) this.setMessages([])
     return this.get('messages')
@@ -102,8 +110,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 
   switch (action.type) {
     case ActionTypes.UPDATE_OPEN_CHAT_ID:
-      openChatID = action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date()
+      const otherUserId = action.userID
+      messages[otherUserId].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
       break
 

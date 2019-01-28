@@ -33,7 +33,7 @@ class UserList extends React.Component {
     //   })
     // })
     return {
-      openChatID: MessagesStore.getOpenChatUserID(),
+      otherUserId: MessagesStore.getOtherUserId(),
       users: UsersStore.getFriends(),
     }
   }

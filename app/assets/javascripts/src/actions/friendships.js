@@ -3,14 +3,14 @@ import Dispatcher from '../dispatcher'
 import { ActionTypes, APIEndpoints, CSRFToken } from '../constants/app'
 
 export default {
-  createFriendship(currentUserId, toUserId) {
+  createFriendship(currentUserId, otherUserId) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.CREATE_FRIENDSHIP}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({
         from_user_id: currentUserId,
-        to_user_id: toUserId,
+        to_user_id: otherUserId,
       })
       .end((error, res) => {
         if (!error && res.status === 200) {

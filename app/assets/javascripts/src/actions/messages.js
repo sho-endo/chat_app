@@ -17,17 +17,17 @@ export default {
   //     timestamp: +new Date(),
   //   })
   // },
-  sendMessage(contents) {
+  sendMessage(contents, otherUserId) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.CREATE_MESSAGE}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({
         contents,
-        from_user_id: 1, // ユーザー機能を実装したら修正（自分のユーザーIDにする）
-        to_user_id: 2, // 仮
+        to_user_id: otherUserId,
         timestamp: +new Date(),
       })
+      .query({other_user_id: otherUserId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -42,10 +42,11 @@ export default {
     })
   },
 
-  getMessages() {
+  getMessages(otherUserId) {
     return new Promise((resolve, reject) => {
       request
       .get(`${APIEndpoints.GET_MESSAGES}`) // 取得したいjsonがあるURLを指定する
+      .query({other_user_id: otherUserId})
       .end((error, res) => {
         if (!error && res.status === 200) { // 200はアクセスが成功した際のステータスコードです。
           const json = JSON.parse(res.text)

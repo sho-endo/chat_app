@@ -1,16 +1,15 @@
 import React from 'react'
 import classNames from 'classNames'
+import PropTypes from 'prop-types'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 import ReplyBox from '../../components/messages/replyBox'
 // import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = this.initialState
-    MessagesAction.getMessages()
   }
   get initialState() {
     return this.getStateFromStore()
@@ -26,13 +25,17 @@ class MessagesBox extends React.Component {
   componentWillUnmount() {
     MessagesStore.offChange(this.offChange.bind(this))
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.otherUserId !== nextProps.otherUserId) {
+      MessagesAction.getMessages(nextProps.otherUserId)
+    }
+  }
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
   render() {
     // const messagesLength = this.state.messages.length
-    const currentUserID = 1 // 仮
-
+    const currentUserID = this.props.currentUser.id
     const messages = this.state.messages.map((message, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
@@ -70,10 +73,15 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             { messages }
           </ul>
-          <ReplyBox />,
+          <ReplyBox { ...this.props } />,
         </div>
       )
   }
+}
+
+MessagesBox.propTypes = {
+  currentUser: PropTypes.object,
+  otherUserId: PropTypes.number,
 }
 
 export default MessagesBox
