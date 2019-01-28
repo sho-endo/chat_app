@@ -115,9 +115,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       //   from: UserStore.user.id,
       // })
       // messages[userID].lastAccess.currentUser = +new Date()
-      const messages = MessagesStore.getMessages()
-      messages.push(action.json)
-      MessagesStore.setMessages(messages)
+      MessagesStore.setMessages(action.json)
       MessagesStore.emitChange()
       break
 

@@ -3,15 +3,12 @@ module Api
     before_action :authenticate_user!
 
     def index
-      @messages = Message.all
-      render json: @messages
+      render json: Message.all
     end
 
     def create
-      @message = Message.new(message_params)
-      if @message.save
-        render json: @message
-      end
+      Message.create(message_params)
+      render json: Message.all
     end
 
     private
