@@ -27,7 +27,6 @@ export default {
         to_user_id: otherUserId,
         timestamp: +new Date(),
       })
-      .query({other_user_id: otherUserId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -41,7 +40,28 @@ export default {
       })
     })
   },
-
+  sendPicture(file, otherUserId) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.CREATE_MESSAGE}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .attach('picture', file, file.name)
+      .field('to_user_id', otherUserId)
+      .field('timestamp', +new Date())
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.SEND_MESSAGE,
+            json,
+          })
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
   getMessages(otherUserId) {
     return new Promise((resolve, reject) => {
       request

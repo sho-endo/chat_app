@@ -50,7 +50,7 @@ class MessagesBox extends React.Component {
       return (
           <li key={ message.timestamp + '-' + message.from_user_id } className={ messageClasses }>
             <div className='message-box__item__contents'>
-              { message.contents }
+              { message.picture.url ? <img src={message.picture.url} /> : message.contents }
             </div>
           </li>
         )

@@ -29,8 +29,21 @@ class ReplyBox extends React.Component {
       value: e.target.value,
     })
   }
+  sendImage(e) {
+    const file = e.target.files[0]
+    const fileSizeinMB = file.size / 1024 / 1024
+    if (this.checkFileSize(fileSizeinMB)) {
+      MessagesAction.sendPicture(file, this.props.otherUserId)
+    }
+  }
+  checkFileSize(fileSizeinMB) {
+    if (fileSizeinMB > 5) {
+      alert('5MB以上の画像はアップロードできません')
+      return false
+    }
+    return true
+  }
   render() {
-    // console.log(this.props.otherUserId)
     return (
       <div className='reply-box'>
         <input
@@ -43,6 +56,12 @@ class ReplyBox extends React.Component {
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>
+        <input
+          type='file'
+          accept='image/jpeg,image/gif,image/png'
+          className='reply-box__image'
+          onChange={ this.sendImage.bind(this) }
+        />
       </div>
     )
   }
