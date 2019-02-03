@@ -1,0 +1,18 @@
+%header.header
+  .header-left
+    .header-logo
+      = link_to 'ChatApp', root_url, class: 'header-logo-link'
+  .header-right
+    %ul.nav.navbar-nav
+      %li.serch-user-btn<
+        = link_to 'ユーザーを探す', users_serch_path
+      %li.dropdown.header-dropdown
+        %a(href='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+          = current_user.name
+          %span.caret
+        %ul.dropdown-menu.user-menu
+          %li.user-menu-list<
+            %a{href: "/users/#{current_user.id}"}<
+              マイページ
+          %li.user-menu-list<
+            = link_to 'ログアウト', destroy_user_session_path, method: 'delete'

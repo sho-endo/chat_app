@@ -1,7 +1,6 @@
 import React from 'react'
 import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
-import Header from '../shared/header'
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -31,7 +30,6 @@ class UserProfile extends React.Component {
     const userEmail = document.getElementById('user-profile-email').getAttribute('data')
     return (
       <div>
-        <Header { ...currentUser }/>
         <div className='row user-profile-wrapper'>
           <div className='col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3'>
             <div className='jumbotron'>

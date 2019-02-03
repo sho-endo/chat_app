@@ -3,7 +3,6 @@ import FriendshipsAction from '../../actions/friendships'
 import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
 import SerchedUserList from './serchedUserList'
-import Header from '../shared/header'
 
 class UserSerch extends React.Component {
 
@@ -41,7 +40,6 @@ class UserSerch extends React.Component {
   render() {
     return (
       <div>
-        <Header { ...this.state.currentUser } />
         <div className ='user-serch-wrapper'>
           <div className='chatapp-logo-wrapper'>
             <span className='chatapp logo-C'>C</span>

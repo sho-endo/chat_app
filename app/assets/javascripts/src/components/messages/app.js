@@ -1,7 +1,6 @@
 import React from 'react'
 import UserList from './userList'
 import MessagesBox from './messagesBox'
-import Header from '../shared/header'
 import FriendshipsAction from '../../actions/friendships'
 import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
@@ -58,7 +57,6 @@ class App extends React.Component {
   render() {
     return (
       <div className='app'>
-        <Header { ...this.state.currentUser } />
         <UserList
           { ...this.state }
           onClickDeleteButton = { this.onClickDeleteButton.bind(this) }
