@@ -34,6 +34,7 @@ class ReplyBox extends React.Component {
     const fileSizeinMB = file.size / 1024 / 1024
     if (this.checkFileSize(fileSizeinMB)) {
       MessagesAction.sendPicture(file, this.props.otherUserId)
+      e.target.value = ''
     }
   }
   checkFileSize(fileSizeinMB) {
