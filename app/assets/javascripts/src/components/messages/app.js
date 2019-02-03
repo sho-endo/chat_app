@@ -48,6 +48,7 @@ class App extends React.Component {
   onClickDeleteButton(e, otherUserId) {
     if (confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
       this.deleteFriendship(otherUserId)
+      this.setState({ otherUserId: null })
     }
     e.stopPropagation()
   }
