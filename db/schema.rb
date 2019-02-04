@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190130084937) do
+ActiveRecord::Schema.define(version: 20190204074538) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "from_user_id", null: false
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 20190130084937) do
     t.integer  "to_user_id",             null: false
     t.string   "picture"
   end
+
+  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id"
+  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

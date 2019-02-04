@@ -18,6 +18,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'lol_dba'
 
 
 group :development, :test do
