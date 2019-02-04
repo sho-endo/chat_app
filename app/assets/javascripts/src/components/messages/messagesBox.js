@@ -16,8 +16,6 @@ class MessagesBox extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    // return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
-    // stateは1つのobjectにする必要がある
     return { messages: MessagesStore.getMessages() }
   }
   componentWillMount() {
@@ -27,6 +25,8 @@ class MessagesBox extends React.Component {
     MessagesStore.offChange(this.offChange.bind(this))
   }
   componentWillReceiveProps(nextProps) {
+    // props.otherUserIdの値が渡されてからActionを呼び出す
+    // 最初はnullで渡されるのでこの処理が必要
     if (this.props.otherUserId !== nextProps.otherUserId) {
       MessagesAction.getMessages(nextProps.otherUserId)
     }

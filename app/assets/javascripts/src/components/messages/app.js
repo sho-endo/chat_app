@@ -18,6 +18,8 @@ class App extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
+    // changeOpenChat()でstate.otherUserIdが変更された場合はその値を保持する
+    // それ以外の場合はStoreからotherUserIdを取得する
     let otherUserId
     if (!this.state || !this.state.otherUserId || !MessagesStore.getOtherUserId()) {
       otherUserId = MessagesStore.getOtherUserId()

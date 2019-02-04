@@ -2,14 +2,6 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import { ActionTypes } from '../constants/app'
 
-// const users = {
-//   user: {
-//     id: 1,
-//     name: 'John Doek',
-//     profilePicture: 'https://avatars1.githubusercontent.com/u/8901351?v=3&s=200',
-//   },
-// }
-
 class UserStore extends BaseStore {
   addChangeListener(callback) {
     this.on('change', callback)

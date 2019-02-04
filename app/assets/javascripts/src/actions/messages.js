@@ -9,14 +9,6 @@ export default {
       userID: newUserID,
     })
   },
-  // sendMessage(userID, message) {
-  //   Dispatcher.handleViewAction({
-  //     type: ActionTypes.SEND_MESSAGE,
-  //     userID: userID,
-  //     message: message,
-  //     timestamp: +new Date(),
-  //   })
-  // },
   sendMessage(contents, otherUserId) {
     return new Promise((resolve, reject) => {
       request
@@ -65,14 +57,14 @@ export default {
   getMessages(otherUserId) {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.GET_MESSAGES}`) // 取得したいjsonがあるURLを指定する
+      .get(`${APIEndpoints.GET_MESSAGES}`)
       .query({other_user_id: otherUserId})
       .end((error, res) => {
-        if (!error && res.status === 200) { // 200はアクセスが成功した際のステータスコードです。
+        if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.GET_MESSAGES,
-            json, // json: jsonと同じ。keyとvalueが一致する場合、このように省略出来ます。
+            json,
           })
           resolve(json)
         } else {

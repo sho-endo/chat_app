@@ -80,8 +80,6 @@ function UserList(props) {
     })
     return (
       <li
-        // onClick={ this.props.changeOpenChat }
-        // onClick={function(e){changeOpenChat(user.id)}}
         onClick={(e) => changeOpenChat(user.id)}
         className={ itemClasses }
         key={ user.id }

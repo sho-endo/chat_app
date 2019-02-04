@@ -5,7 +5,6 @@ import UsersStore from '../../stores/users'
 import SerchedUserList from './serchedUserList'
 
 class UserSerch extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = this.initialState
