@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import UserList from './userList'
 import MessagesBox from './messagesBox'
 import FriendshipsAction from '../../actions/friendships'
@@ -36,6 +37,10 @@ class App extends React.Component {
   componentWillUnmount() {
     UsersStore.offChange(this.offChange.bind(this))
     MessagesStore.offChange(this.offChange.bind(this))
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    const stateDiff = _.isEqual(nextState, this.state)
+    return !stateDiff
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
