@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 function UserList(props) {
   const {
-    users,
+    friends,
     otherUserId,
     onClickDeleteButton,
     changeOpenChat,
@@ -71,7 +71,7 @@ function UserList(props) {
   //     </li>
   //   )
   // }, this)
-  const friends = users.map((user, index) => {
+  const friendsList = friends.map((user, index) => {
     const itemClasses = classNames({
       'user-list__item': true,
       'clear': true,
@@ -101,14 +101,14 @@ function UserList(props) {
   return (
     <div className='user-list'>
       <ul className='user-list__list'>
-        { friends }
+        { friendsList }
       </ul>
     </div>
   )
 }
 
 UserList.propTypes = {
-  users: PropTypes.array,
+  friends: PropTypes.array,
   otherUserId: PropTypes.number,
   onClickDeleteButton: PropTypes.func,
   changeOpenChat: PropTypes.func,

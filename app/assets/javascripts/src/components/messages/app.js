@@ -21,14 +21,16 @@ class App extends React.Component {
     // changeOpenChat()でstate.otherUserIdが変更された場合はその値を保持する
     // それ以外の場合はStoreからotherUserIdを取得する
     let otherUserId
-    if (!this.state || !this.state.otherUserId || !MessagesStore.getOtherUserId()) {
+    const isOtherUserIdPresent = this.state && this.state.otherUserId
+    const isFriendPresent = !!MessagesStore.getOtherUserId()
+    if (!isOtherUserIdPresent || !isFriendPresent) {
       otherUserId = MessagesStore.getOtherUserId()
     } else {
       otherUserId = this.state.otherUserId
     }
     return {
       currentUser: UsersStore.getCurrentUser(),
-      users: UsersStore.getFriends(),
+      friends: UsersStore.getFriends(),
       otherUserId,
     }
   }
