@@ -17,4 +17,9 @@ class Friendship < ActiveRecord::Base
         errors.add(:base, "自分とはチャットできません")
       end
     end
+
+    def Friendship.find_friendship_by_id(current_user_id, other_user_id)
+      Friendship.find_by(from_user_id: current_user_id, to_user_id: other_user_id) ||
+      Friendship.find_by(from_user_id: other_user_id, to_user_id: current_user_id)
+    end
 end

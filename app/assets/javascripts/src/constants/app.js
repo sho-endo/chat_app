@@ -22,7 +22,7 @@ export const APIEndpoints = {
   CREATE_MESSAGE: APIRoot + '/messages',
   GET_SERCH_USERS: APIRoot + '/users/serch',
   GET_FRIENDS: APIRoot + '/users/friends',
-  GET_CURRENT_USER: APIRoot + '/users/current',
+  GET_CURRENT_USER: APIRoot + '/users/return_current_user',
   CREATE_FRIENDSHIP: APIRoot + '/friendships',
   DELETE_FRIENDSHIP: APIRoot + '/friendships/',
 }

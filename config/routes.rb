@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:index, :create]
     get '/users/serch', to: 'users#serch'
     get '/users/friends', to: 'users#friends'
-    get '/users/current', to: 'users#current'
+    get '/users/return_current_user', to: 'users#return_current_user'
     resources :friendships, only: [:create, :destroy]
   end
 end

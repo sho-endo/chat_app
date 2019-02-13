@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
     send_messages.where(to_user_id: other_user_id) +
     receive_messages.where(from_user_id: other_user_id)
   end
+
+  def User.serch_by_word(serch_word)
+    serch_word.present? ? User.where('name LIKE ?', "%#{serch_word}") : []
+  end
 end
