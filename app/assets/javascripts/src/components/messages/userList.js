@@ -11,6 +11,10 @@ function UserList(props) {
     onClickDeleteButton,
     changeOpenChat,
   } = props
+  const shouldSkipRender = !friends
+  if (shouldSkipRender) {
+    return (<div className='user-list'></div>)
+  }
   // this.state.messageList.sort((a, b) => {
   //   if (a.lastMessage.timestamp > b.lastMessage.timestamp) {
   //     return -1

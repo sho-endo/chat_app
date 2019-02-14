@@ -12,9 +12,9 @@ class ChatStore extends BaseStore {
   }
   getOtherUserId() {
     let otherUserId = null
-    const users = UsersStore.getFriends()
-    if (users.length !== 0) {
-      otherUserId = users[0].id
+    const friends = UsersStore.getFriends()
+    if (friends.length !== 0) {
+      otherUserId = friends[0].id
     }
     return otherUserId
   }

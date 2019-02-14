@@ -21,6 +21,6 @@ class User < ActiveRecord::Base
   end
 
   def User.serch_by_word(serch_word)
-    serch_word.present? ? User.where('name LIKE ?', "%#{serch_word}") : []
+    serch_word.present? ? User.where('name LIKE ?', "%#{serch_word}%") : []
   end
 end
