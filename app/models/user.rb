@@ -12,12 +12,24 @@ class User < ActiveRecord::Base
   has_many :receive_messages, class_name: 'Message', foreign_key: 'to_user_id', dependent: :destroy
   
   def friends
-    friends_of_from_user + friends_of_to_user
+    friends = friends_of_from_user.to_a + friends_of_to_user.to_a
+    return sort_by_time_of_last_message(friends)
   end
 
   def all_chats(other_user_id)
     send_messages.where(to_user_id: other_user_id) +
     receive_messages.where(from_user_id: other_user_id)
+  end
+
+  def get_post_time_of_last_message(other_user)
+    messages = self.all_chats(other_user.id)
+    return 10000000000000 if messages.empty? # メッセージがない場合はリストの１番上に持ってくるため
+    time_of_last_message = messages.sort_by!{ |message| message.timestamp }[-1].timestamp
+    return time_of_last_message
+  end
+
+  def sort_by_time_of_last_message(friends)
+    friends.sort_by!{ |friend| self.get_post_time_of_last_message(friend) }.reverse!
   end
 
   def User.serch_by_word(serch_word)

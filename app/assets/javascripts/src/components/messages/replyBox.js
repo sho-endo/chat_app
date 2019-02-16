@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import UsersAction from '../../actions/users'
 
 class ReplyBox extends React.Component {
 
@@ -18,6 +19,7 @@ class ReplyBox extends React.Component {
   handleKeyDown(e) {
     if (e.target.value && e.keyCode === 13) {
       MessagesAction.sendMessage(this.state.value, this.props.otherUserId)
+      UsersAction.getFriends()
       this.setState({
         value: '',
       })
