@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import _ from 'lodash'
 import classNames from 'classnames'
+import Gravatar from 'react-gravatar'
 // import Utils from '../../utils'
 
 function UserList(props) {
@@ -89,6 +90,9 @@ function UserList(props) {
         key={ user.id }
       >
         <div className='user-list__item__details'>
+          <div className='user-list__item__picture'>
+            <Gravatar email={ user.email } />
+          </div>
           <a href={`/users/${user.id}`} className='user-list__item__name'>
             { user.name }
           </a>

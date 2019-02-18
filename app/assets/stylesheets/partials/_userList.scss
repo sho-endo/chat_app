@@ -53,15 +53,14 @@
       border-radius: 50%;
       overflow: hidden;
       float: left;
-      img {
-        width: inherit;
-      }
+      margin-right: 10px;
     }
 
     &__name {
       margin: 3px 0 0 0;
       font-size: 16px;
       font-weight: inherit;
+      line-height: 50px;
     }
 
     &__message {

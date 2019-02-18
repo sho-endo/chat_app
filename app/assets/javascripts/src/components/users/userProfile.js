@@ -1,4 +1,5 @@
 import React from 'react'
+import Gravatar from 'react-gravatar'
 import UsersAction from '../../actions/users'
 import UsersStore from '../../stores/users'
 
@@ -33,6 +34,9 @@ class UserProfile extends React.Component {
         <div className='row user-profile-wrapper'>
           <div className='col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3'>
             <div className='jumbotron'>
+              <div className='profile-picture'>
+                <Gravatar email={ userEmail } size={100} className='img-thumbnail' />
+              </div>
               <div className='profile-contents-wrapper'>
                 <p>{userName}</p>
                 <p>{userEmail}</p>
