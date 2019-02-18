@@ -89,9 +89,9 @@ function UserList(props) {
         key={ user.id }
       >
         <div className='user-list__item__details'>
-          <h4 className='user-list__item__name'>
+          <a href={`/users/${user.id}`} className='user-list__item__name'>
             { user.name }
-          </h4>
+          </a>
         </div>
         <i
         onClick={(e) => onClickDeleteButton(e, user.id) }
