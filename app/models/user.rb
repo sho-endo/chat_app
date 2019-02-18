@@ -32,6 +32,32 @@ class User < ActiveRecord::Base
     friends.sort_by!{ |friend| self.get_post_time_of_last_message(friend) }.reverse!
   end
 
+  def get_last_message_info(user_id)
+    messages = self.all_chats(user_id)
+    last_message = messages.sort{ |a, b| a.created_at <=> b.created_at }[-1]
+    contents  = last_message.nil? ? nil : last_message.contents
+    timestamp = last_message.nil? ? nil : last_message.timestamp
+    return {
+            last_message_info: {
+              contents: contents,
+              timestamp: timestamp,
+              to_user_id: self.id,
+            }
+           }
+  end
+
+  def get_info_of_friends_and_last_message
+    return [] if self.friends.blank?
+    friends_with_last_message = []
+    self.friends.each do |friend|
+      message_info = friend.get_last_message_info(self.id)
+      friend_info = friend.attributes
+      friend_and_last_message_info = message_info.merge(friend_info)
+      friends_with_last_message << friend_and_last_message_info
+    end
+    return friends_with_last_message
+  end
+
   def User.serch_by_word(serch_word)
     serch_word.present? ? User.where('name LIKE ?', "%#{serch_word}%") : []
   end

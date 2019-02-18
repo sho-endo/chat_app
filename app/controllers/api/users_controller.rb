@@ -7,7 +7,8 @@ class Api::UsersController < ApplicationController
   end
 
   def friends
-    render json: current_user.friends
+    friends_with_last_message = current_user.get_info_of_friends_and_last_message
+    render json: friends_with_last_message
   end
 
   def return_current_user
