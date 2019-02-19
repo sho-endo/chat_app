@@ -19,11 +19,11 @@ class ChatStore extends BaseStore {
     return otherUserId
   }
   getMessages() {
-    if (!this.get('messages')) this.setMessages([])
+    if (!this.get('messages')) this.setMessages({})
     return this.get('messages')
   }
-  setMessages(array) {
-    this.set('messages', array)
+  setMessages(object) {
+    this.set('messages', object)
   }
 }
 const MessagesStore = new ChatStore()
@@ -38,6 +38,11 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.GET_MESSAGES:
+      MessagesStore.setMessages(action.json)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.UPDATE_LAST_ACCESS:
       MessagesStore.setMessages(action.json)
       MessagesStore.emitChange()
       break

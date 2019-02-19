@@ -3,16 +3,16 @@ class Api::MessagesController < ApplicationController
 
   def index
     other_user_id = params[:other_user_id]
-    @messages = other_user_id ? current_user.all_chats(other_user_id)
+    messages = other_user_id ? current_user.all_chats_with_last_access_info(other_user_id)
                               : []
-    render json: @messages
+    render json: messages
   end
 
   def create
     message = current_user.send_messages.create(message_params)
-    @messages = message.valid? ? current_user.all_chats(message.to_user_id)
+    messages = message.valid? ? current_user.all_chats_with_last_access_info(message.to_user_id)
                                 : []
-    render json: @messages
+    render json: messages
   end
 
   private

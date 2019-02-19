@@ -7,14 +7,14 @@ import ReplyBox from '../../components/messages/replyBox'
 
 function MessagesBox(props) {
   const { currentUser, otherUserId, messages } = props
-  const shouldSkipRender = !(currentUser && otherUserId && messages)
+  const shouldSkipRender = !(currentUser && otherUserId) // messagesの条件必要か
   if (shouldSkipRender) {
     return (<h1>チャット相手を選択してください</h1>)
   }
   // const messagesLength = this.state.messages.length
   const currentUserID = currentUser.id
   const sortedMessages = _.orderBy(
-    messages, ['created_at'], ['asc']
+    messages.message, ['created_at'], ['asc']
   )
   const messagesList = sortedMessages.map((message, index) => {
     const messageClasses = classNames({
@@ -61,7 +61,7 @@ function MessagesBox(props) {
 MessagesBox.propTypes = {
   currentUser: PropTypes.object,
   otherUserId: PropTypes.number,
-  messages: PropTypes.array,
+  messages: PropTypes.object,
 }
 
 export default MessagesBox

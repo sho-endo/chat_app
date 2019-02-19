@@ -43,4 +43,25 @@ export default {
       })
     })
   },
+  updateLatsAccess(otherUserId) {
+    return new Promise((resolve, reject) => {
+      request
+      .patch(`${APIEndpoints.UPDATE_LAST_ACCESS}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({
+        to_user_id: otherUserId,
+      })
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.UPDATE_LAST_ACCESS,
+            json,
+          })
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
 }

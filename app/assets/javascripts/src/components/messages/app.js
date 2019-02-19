@@ -43,6 +43,7 @@ class App extends React.Component {
   changeOpenChat(otherUserId) {
     this.setState({ otherUserId })
     MessagesAction.getMessages(otherUserId)
+    FriendshipsAction.updateLatsAccess(otherUserId)
   }
   onClickDeleteButton(e, otherUserId) {
     if (confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {

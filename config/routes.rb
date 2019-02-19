@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     get '/users/friends', to: 'users#friends'
     get '/users/return_current_user', to: 'users#return_current_user'
     resources :friendships, only: [:create, :destroy]
+    patch '/friendships/update_last_access', to: 'friendships#update_last_access'
   end
 end

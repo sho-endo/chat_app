@@ -21,6 +21,18 @@ class User < ActiveRecord::Base
     receive_messages.where(from_user_id: other_user_id)
   end
 
+  def all_chats_with_last_access_info(other_user_id)
+    all_chats = { message: all_chats(other_user_id) }
+    friendship = Friendship.find_friendship_by_ids(self.id, other_user_id)
+    last_access_info = {
+      lastAccess: {
+        fromUser: friendship.last_access_of_from_user,
+        toUser: friendship.last_access_of_to_user,
+      }
+    }
+    return all_chats.merge(last_access_info)
+  end
+
   def get_post_time_of_last_message(other_user)
     messages = self.all_chats(other_user.id)
     return 10000000000000 if messages.empty? # メッセージがない場合はリストの１番上に持ってくるため
@@ -38,10 +50,10 @@ class User < ActiveRecord::Base
     contents  = last_message.nil? ? nil : last_message.contents
     timestamp = last_message.nil? ? nil : last_message.timestamp
     return {
-            last_message_info: {
+            lastMessage: {
               contents: contents,
               timestamp: timestamp,
-              to_user_id: self.id,
+              toUserId: self.id,
             }
            }
   end
