@@ -4,22 +4,17 @@
   left: 0;
   bottom: 0;
   width: 300px;
+  overflow: scroll;
   background: #fff;
   border-right: 1px solid rgba( 0, 0, 0, 0.1 );
 
   &__item {
     padding: 14px 10px 14px 15px;
     border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
-    cursor: pointer;
 
     &--new {
       background: #EEF1F6;
       font-weight: 500;
-
-      .user-list__item__icon {
-        color: #1D9BCE;
-        margin-right: 3px;
-      }
     }
 
     a {
@@ -33,18 +28,6 @@
       position: relative;
       border-top: 1px solid rgba( 0, 0, 0, 0.1 );
       margin-top: -1px;
-      // &:before {
-      //   width: 0;
-      //   height: 0;
-      //   border-style: solid;
-      //   border-width: 40px 0 40px 20px;
-      //   border-color: transparent transparent transparent #93C26D;
-      //   position: absolute;
-      //   display: block;
-      //   right: -20px;
-      //   top: 0;
-      //   content: " ";
-      // }
     }
 
     &__picture {
@@ -59,12 +42,12 @@
     &__name {
       margin: 3px 0 0 0;
       font-size: 16px;
-      font-weight: inherit;
       line-height: 50px;
     }
 
     &__message {
       width: 200px;
+      margin-top: 5px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -89,6 +72,18 @@
       color: red;
       float: right;
       margin-top: -5px;
+      cursor: pointer;
     }
+
+    &__icon {
+      margin-right: 3px;
+    }
+  }
+}
+
+.skip-render-list {
+  &__text {
+    position: relative;
+    top: 100px;
   }
 }

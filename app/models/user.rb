@@ -49,11 +49,12 @@ class User < ActiveRecord::Base
     last_message = messages.sort{ |a, b| a.created_at <=> b.created_at }[-1]
     contents  = last_message.nil? ? nil : last_message.contents
     timestamp = last_message.nil? ? nil : last_message.timestamp
+    to_user_id = last_message.nil? ? nil : last_message.to_user_id
     return {
             lastMessage: {
               contents: contents,
               timestamp: timestamp,
-              toUserId: self.id,
+              toUserId: to_user_id,
             }
            }
   end
@@ -63,7 +64,7 @@ class User < ActiveRecord::Base
     friends_with_last_message = []
     self.friends.each do |friend|
       message_info = friend.get_last_message_info(self.id)
-      friend_info = friend.attributes
+      friend_info = JSON.parse(friend.to_json) # attributesメソッドを使うとencrypt_passwordやtokenも取得してしまう
       friend_and_last_message_info = message_info.merge(friend_info)
       friends_with_last_message << friend_and_last_message_info
     end

@@ -9,7 +9,7 @@ class Api::FriendshipsController < ApplicationController
   def destroy
     friendship = Friendship.find_friendship_by_ids(current_user.id, params[:id])
     friendship.destroy if friendship
-    render json: current_user.friends
+    render json: current_user.get_info_of_friends_and_last_message
   end
 
   def update_last_access

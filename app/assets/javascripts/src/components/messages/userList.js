@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import _ from 'lodash'
 import classNames from 'classnames'
 import Gravatar from 'react-gravatar'
-// import Utils from '../../utils'
+import Utils from '../../utils'
 
 function UserList(props) {
   const {
@@ -12,96 +11,65 @@ function UserList(props) {
     onClickDeleteButton,
     changeOpenChat,
   } = props
-  const shouldSkipRender = !friends
+
+  const shouldSkipRender = !(friends && friends.length > 0)
   if (shouldSkipRender) {
-    return (<div className='user-list'></div>)
+    return (
+    <div className='user-list skip-render-list'>
+      <p className='skip-render-list__text'>
+        <a href='/users/serch'>検索ページ</a>からチャット相手を探してください
+      </p>
+    </div>
+    )
   }
-  // this.state.messageList.sort((a, b) => {
-  //   if (a.lastMessage.timestamp > b.lastMessage.timestamp) {
-  //     return -1
-  //   }
-  //   if (a.lastMessage.timestamp < b.lastMessage.timestamp) {
-  //     return 1
-  //   }
-  //   return 0
-  // })
 
-  // const messages = this.state.messageList.map((message, index) => {
-  //   const date = Utils.getNiceDate(message.lastMessage.timestamp)
-
-  //   var statusIcon
-  //   if (message.lastMessage.from !== message.user.id) {
-  //     statusIcon = (
-  //       <i className='fa fa-reply user-list__item__icon' />
-  //     )
-  //   }
-  //   if (message.lastAccess.currentUser < message.lastMessage.timestamp) {
-  //     statusIcon = (
-  //       <i className='fa fa-circle user-list__item__icon' />
-  //     )
-  //   }
-
-  //   var isNewMessage = false
-  //   if (message.lastAccess.currentUser < message.lastMessage.timestamp) {
-  //     isNewMessage = message.lastMessage.from !== users.user.id
-  //   }
-
-  //   const itemClasses = classNames({
-  //     'user-list__item': true,
-  //     'clear': true,
-  //     'user-list__item--new': isNewMessage,
-  //     'user-list__item--active': this.state.openChatID === message.user.id,
-  //   })
-
-  //   return (
-  //     <li
-  //       onClick= { this.changeOpenChat.bind(this, message.user.id) }
-  //       className={ itemClasses }
-  //       key={ message.user.id }
-  //     >
-  //       <div className='user-list__item__picture'>
-  //         <img src={ message.user.profilePicture } />
-  //       </div>
-  //       <div className='user-list__item__details'>
-  //         <h4 className='user-list__item__name'>
-  //           { message.user.name }
-  //           <abbr className='user-list__item__timestamp'>
-  //             { date }
-  //           </abbr>
-  //         </h4>
-  //         <span className='user-list__item__message'>
-  //           { statusIcon } { message.lastMessage.contents }
-  //         </span>
-  //       </div>
-  //     </li>
-  //   )
-  // }, this)
-  const friendsList = friends.map((user, index) => {
+  const friendsList = friends.map((friend, index) => {
+    const { lastMessage } = friend
+    const date = lastMessage.contents === null ? null : Utils.getNiceDate(lastMessage.timestamp)
+    let statusIcon
+    if (lastMessage.contents === null) {
+      statusIcon = 'new friend'
+    } else if (lastMessage.toUserId === friend.id) {
+      statusIcon = (
+        <i className='fa fa-reply user-list__item__icon' />
+      )
+    } else {
+      statusIcon = (
+        <i className='fa fa-envelope-o user-list__item__icon' />
+      )
+    }
+    let isNewFriend = lastMessage.contents === null
     const itemClasses = classNames({
       'user-list__item': true,
       'clear': true,
-      // 'user-list__item--new': isNewMessage,
-      'user-list__item--active': otherUserId === user.id,
+      'user-list__item--new': isNewFriend,
+      'user-list__item--active': otherUserId === friend.id,
     })
     return (
       <li
-        onClick={(e) => changeOpenChat(user.id)}
+        onClick={(e) => changeOpenChat(friend.id)}
         className={ itemClasses }
-        key={ user.id }
+        key={ friend.id }
       >
         <div className='user-list__item__details'>
           <div className='user-list__item__picture'>
-            <Gravatar email={ user.email } />
+            <a href={`/users/${friend.id}`}><Gravatar email={ friend.email } /></a>
           </div>
-          <a href={`/users/${user.id}`} className='user-list__item__name'>
-            { user.name }
-          </a>
+          <h4 href={`/users/${friend.id}`} className='user-list__item__name'>
+            { friend.name }
+          </h4>
+          <span className='user-list__item__message'>
+            { statusIcon } { lastMessage.contents }
+          </span>
         </div>
         <i
-        onClick={(e) => onClickDeleteButton(e, user.id) }
-        className='fa fa-times-circle user-list__item__delete-btn'
+          onClick={(e) => onClickDeleteButton(e, friend.id) }
+          className='fa fa-times-circle user-list__item__delete-btn'
         >
         </i>
+        <abbr className='user-list__item__timestamp'>
+          { date }
+        </abbr>
       </li>
     )
   }, this)
