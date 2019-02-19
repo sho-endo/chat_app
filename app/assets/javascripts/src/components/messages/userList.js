@@ -17,7 +17,7 @@ function UserList(props) {
     return (
     <div className='user-list skip-render-list'>
       <p className='skip-render-list__text'>
-        <a href='/users/serch'>検索ページ</a>からチャット相手を探してください
+        <a href='/users/serch'>検索ページ</a>からチャット相手を見つけましょう
       </p>
     </div>
     )
@@ -28,7 +28,7 @@ function UserList(props) {
     const date = lastMessage.contents === null ? null : Utils.getNiceDate(lastMessage.timestamp)
     let statusIcon
     if (lastMessage.contents === null) {
-      statusIcon = 'new friend'
+      statusIcon = 'no message'
     } else if (lastMessage.toUserId === friend.id) {
       statusIcon = (
         <i className='fa fa-reply user-list__item__icon' />

@@ -24,10 +24,18 @@ class User < ActiveRecord::Base
   def all_chats_with_last_access_info(other_user_id)
     all_chats = { message: all_chats(other_user_id) }
     friendship = Friendship.find_friendship_by_ids(self.id, other_user_id)
+    # friendshipのfrom_user_idと比較して,誰がアクセスしたかを判断
+    last_access_of_current_user = self.id == friendship.from_user_id ?
+      friendship.last_access_of_from_user :
+      friendship.last_access_of_to_user
+    last_access_of_recipient = other_user_id == friendship.from_user_id ?
+      friendship.last_access_of_from_user :
+      friendship.last_access_of_to_user
+
     last_access_info = {
       lastAccess: {
-        fromUser: friendship.last_access_of_from_user,
-        toUser: friendship.last_access_of_to_user,
+        currentUser: last_access_of_current_user,
+        recipient: last_access_of_recipient,
       }
     }
     return all_chats.merge(last_access_info)

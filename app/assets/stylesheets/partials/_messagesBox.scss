@@ -19,25 +19,40 @@
       border-radius: 10px;
       padding: 10px 15px;
       margin-bottom: 10px;
+      max-width: 65%;
+      word-break: break-all;
+    }
+
+    &__date {
+      float: left;
+      font-size: 12px;
+      margin-left: 5px;
     }
 
     &--from-current {
+
       .message-box__item__contents {
         float: right;
         background: #218CB9;
         color: #fff;
         margin-bottom: 10px;
+        max-width: 65%;
+        word-break: break-all;
       }
-    }
 
-    &--read {
-      .message-box__item__contents {
-        background: none;
-        padding: 4px 0;
-        font-size: 12px;
-        color: rgba( 0, 0, 0, 0.8 );
-        font-weight: bold;
+      .message-box__item__status {
         float: right;
+      }
+
+      .message-box__item__date {
+        font-size: 12px;
+        margin-right: 5px;
+      }
+
+      .message-box__item__read {
+        font-size: 12px;
+        text-align: right;
+        margin-right: 5px;
       }
     }
   }
@@ -47,5 +62,12 @@
     left: 300px;
     bottom: 0;
     right: 0;
+  }
+}
+
+.skip-render-box {
+  &__text {
+    text-align: center;
+    color: #AAAAAA;
   }
 }

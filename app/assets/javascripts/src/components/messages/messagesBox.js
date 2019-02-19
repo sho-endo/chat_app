@@ -3,61 +3,69 @@ import classNames from 'classNames'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import ReplyBox from '../../components/messages/replyBox'
-// import Utils from '../../utils'
+import Utils from '../../utils'
 
-function MessagesBox(props) {
-  const { currentUser, otherUserId, messages } = props
-  const shouldSkipRender = !(currentUser && otherUserId) // messagesの条件必要か
-  if (shouldSkipRender) {
-    return (<h1>チャット相手を選択してください</h1>)
+class MessagesBox extends React.Component {
+  componentDidUpdate() {
+    const messageList = document.getElementsByClassName('scroll-target')[0]
+    messageList.scrollTop = messageList.scrollHeight // 常に一番下にスクロールして表示する
   }
-  // const messagesLength = this.state.messages.length
-  const currentUserID = currentUser.id
-  const sortedMessages = _.orderBy(
-    messages.message, ['created_at'], ['asc']
-  )
-  const messagesList = sortedMessages.map((message, index) => {
-    const messageClasses = classNames({
-      'message-box__item': true,
-      'message-box__item--from-current': message.from_user_id === currentUserID,
-      'clear': true,
-    })
-
-    return (
+  render() {
+    const { currentUser, otherUserId, messages } = this.props
+    const isNotEmpty = (obj) => {
+      return Object.keys(obj).length
+    }
+    const shouldSkipRender = !(currentUser && otherUserId && isNotEmpty(messages))
+    if (shouldSkipRender) {
+      return (
+        <div className='message-box__list skip-render-box scroll-target'>
+          <h3 className='skip-render-box__text'>
+            チャット相手を選択してください
+          </h3>
+        </div>
+      )
+    }
+    const lastAccessOfRecipient = messages.lastAccess.recipient
+    const sortedMessages = _.orderBy(
+      messages.message, ['created_at'], ['asc']
+    )
+    const messagesList = sortedMessages.map((message, index) => {
+      const messageFromCurrentUser = message.from_user_id === currentUser.id
+      const date = Utils.getShortDate(message.timestamp)
+      const read = (lastAccessOfRecipient > message.timestamp) && messageFromCurrentUser
+              ? '既読'
+              : null
+      const messageClasses = classNames({
+        'message-box__item': true,
+        'message-box__item--from-current': messageFromCurrentUser,
+        'clear': true,
+      })
+      return (
         <li key={ message.timestamp + '-' + message.from_user_id } className={ messageClasses }>
           <div className='message-box__item__contents'>
             { message.picture.url ? <img src={message.picture.url} /> : message.contents }
           </div>
+          <div className='message-box__item__status'>
+            <div className='message-box__item__read'>
+              { read }
+            </div>
+            <div className='message-box__item__date'>
+              { date }
+            </div>
+          </div>
         </li>
       )
-  })
-
-  // 現時点ではstateにlastAccessは存在しないためコメントアウト
-  //
-  // const lastMessage = this.state.messages[messagesLength - 1]
-  //
-  // if (lastMessage.from === currentUserID) {
-  //   if (this.state.lastAccess.recipient >= lastMessage.timestamp) {
-  //     const date = Utils.getShortDate(lastMessage.timestamp)
-  //     messages.push(
-  //         <li key='read' className='message-box__item message-box__item--read'>
-  //           <div className='message-box__item__contents'>
-  //             Read { date }
-  //           </div>
-  //         </li>
-  //       )
-  //   }
-  // }
-  return (
-    <div className='message-box'>
-      <ul className='message-box__list'>
-        { messagesList }
-      </ul>
-      <ReplyBox { ...props } />,
-    </div>
-  )
+    })
+    return (
+      <div className='message-box'>
+        <ul className='message-box__list scroll-target'>
+          { messagesList }
+        </ul>
+        <ReplyBox { ...this.props } />,
+      </div>
+    )
+  }
 }
-
 MessagesBox.propTypes = {
   currentUser: PropTypes.object,
   otherUserId: PropTypes.number,
