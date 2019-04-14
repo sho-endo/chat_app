@@ -128,6 +128,7 @@ GEM
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
+    pg (0.21.0)
     public_suffix (3.0.3)
     rack (1.6.10)
     rack-test (0.6.3)
@@ -236,6 +237,7 @@ DEPENDENCIES
   jquery-rails
   lol_dba
   mini_magick
+  pg (~> 0.15)
   rails (= 4.2.8)
   react-rails
   sass-rails (~> 5.0)
