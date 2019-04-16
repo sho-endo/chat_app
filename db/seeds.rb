@@ -9,18 +9,28 @@
 (1..30).each do |i|
   User.create(
     name: (0...8).map{ ('a'..'z').to_a[rand(26)] }.join,
-    email: "test#{i}@ne.jp",
+    email: "test#{i}@example.com",
     password: 'foobar'
     )
 end
 
 User.create(
   name: 'test',
-  email: 'test@ne.jp',
+  email: 'test@example.com',
   password: 'foobar'
   )
 User.create(
   name: 'hoge',
-  email: 'hogehoge@foobar.com',
+  email: 'hogehoge@example.com',
+  password: 'foobar'
+)
+User.create(
+  name: 'test_user1',
+  email: 'test_user1@example.com',
+  password: 'foobar'
+)
+User.create(
+  name: 'test_user2',
+  email: 'test_user2@example.com',
   password: 'foobar'
 )
