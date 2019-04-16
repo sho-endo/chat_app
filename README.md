@@ -28,7 +28,7 @@ https://react-rails-chat.herokuapp.com
 * 友達機能
   * 多対多のDBテーブルのリレーション管理
 * １対１のチャット機能
-  * 投稿時間表示, 既読機能
+  * 投稿時間表示, 既読機能も実装
 * 画像投稿機能
   * carrierwave, mini_magickを使用
 * herokuでのデプロイ
@@ -36,6 +36,7 @@ https://react-rails-chat.herokuapp.com
 ## バージョン
 * ruby 2.5.1
 * rails 4.2.8
+* react 0.14.5
 * node 8.5.0
 * npm 6.4.1
 
